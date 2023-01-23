@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.apollographql.apollo3'
+    id 'kotlin-kapt'
+    id "com.google.dagger.hilt.android"
 }
 
 android {
@@ -30,7 +33,19 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
+
+apollo {
+    service("service") {
+        packageName.set("com.example.graphqlandroid")
+    }
+
+}
+
 
 dependencies {
 
@@ -41,4 +56,25 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //Apollo Dependency
+    implementation("com.apollographql.apollo3:apollo-runtime:3.7.3")
+
+    //Dagger hilt dependency
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+
+    implementation 'androidx.fragment:fragment-ktx:1.5.5'
+
+    implementation 'com.squareup.okhttp3:okhttp:4.9.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.2'
+}
+
+kapt {
+    correctErrorTypes true
 }
